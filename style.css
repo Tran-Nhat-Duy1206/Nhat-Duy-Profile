@@ -1,0 +1,278 @@
+/* Reset và thiết lập kích thước nền */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#loading-screen, #enter-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/Castorise.jpg') center/cover no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+/* Ẩn enter screen mặc định */
+#enter-screen {
+    display: none;
+}
+
+.spinner {
+    border: 5px solid rgba(255,255,255,0.1);
+    border-top: 5px solid white;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#enter-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: #fff;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#enter-btn:hover {
+    background: #ddd;
+}
+
+
+/* Thiết kế giao diện chính */
+body {
+    background: url('img/Castorise.jpg') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+    animation: fadeIn 2s ease-in;
+}
+
+/* Ảnh nền */
+#bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+    z-index: -2;
+    opacity: 1;
+    transition: opacity 2s ease-in;
+}
+
+/* Video nền */
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 3s ease-in-out;
+}
+
+/* Tiêu đề */
+h1 {
+    font-size: 3em;
+    margin: 0.5em;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
+    animation: slideIn 1s ease-out;
+}
+
+/* Icon mạng xã hội */
+.social-icons a {
+    width: 50px; /* Đặt chiều rộng cố định */
+    height: 50px; /* Đặt chiều cao cố định */
+    font-size: 1.4em; /* Kích thước icon */
+    color: #fff;
+    text-decoration: none;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 50%; /* Làm tròn icon */
+    margin: 0 0.4em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-icons a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #aaf;
+    transform: scale(1.2);
+}
+
+/* Đồng bộ icon */
+.social-icons i {
+    font-size: 1em; /* Kích thước icon bên trong */
+    vertical-align: middle;
+    line-height: 1;
+}
+
+/* Riêng icon Facebook */
+.social-icons .fa-facebook {
+    display: none;
+}
+
+.social-icons .fa-facebook-f {
+    padding-top: 1px;
+}
+
+/* Hiệu ứng */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Lớp phủ nền */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 20, 20, 0.4);
+    z-index: 1;
+    transition: background-color 1s ease-in-out;
+}
+
+/* Nội dung nổi trên overlay */
+.content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    h1 { font-size: 2em; }
+    .social-icons a { font-size: 1em; }
+}
+
+/* Hồ sơ */
+.profile-container {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+}
+
+/* Thẻ chứa thông tin cá nhân */
+.profile-card-v2 {
+    width: 330px;
+    max-width: 90%;
+    padding: 2em;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: white;
+    animation: slideIn 1s ease-out;
+}
+
+/* Ảnh đại diện */
+.avatar-glow {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 1em;
+    overflow: hidden;
+    border: 4px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Ảnh đại diện bên trong */
+.avatar-glow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Tên người dùng */
+.profile-card-v2 h2 {
+    font-size: 1.8em;
+    margin: 0.3em 0;
+}
+
+/* Mô tả người dùng */
+.profile-card-v2 .tagline {
+    font-size: 0.95em;
+    opacity: 0.85;
+    margin-bottom: 1.2em;
+}
+
+/* Nút nhấn */
+.glow-btn {
+    margin-top: 1em;
+    padding: 10px 20px;
+    font-size: 1.2em; 
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    border: none; 
+    border-radius: 30px;
+    color: #000;
+    font-weight: bold; 
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(173, 216, 230, 0.5);
+    transition: transform 0.3s ease;
+    display: inline-block;
+    text-align: center; 
+}
+
+/* Nút nhấn */
+.glow-btn:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, #ACB6E5, #74ebd5);
+}
+
+.footer
+    {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 1em;
+        background: rgba(0, 0, 0, 0.5);
+        color: white;
+        font-size: 0.8em;
+        z-index: 2;
+    }
+
+
