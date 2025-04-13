@@ -43,6 +43,7 @@ html, body {
     }
 }
 
+/* Hiệu ứng loading */
 #enter-btn {
     padding: 10px 20px;
     font-size: 18px;
@@ -108,13 +109,13 @@ h1 {
 
 /* Icon mạng xã hội */
 .social-icons a {
-    width: 50px; /* Đặt chiều rộng cố định */
-    height: 50px; /* Đặt chiều cao cố định */
-    font-size: 1.4em; /* Kích thước icon */
+    width: 50px; 
+    height: 50px; 
+    font-size: 1.4em;
     color: #fff;
     text-decoration: none;
     background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%; /* Làm tròn icon */
+    border-radius: 50%; 
     margin: 0 0.4em;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -274,4 +275,122 @@ h1 {
         font-size: 0.8em;
         z-index: 2;
     }
+
+/* Thông tin Discord */
+.discord-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    padding: 1.5em;
+    border-radius: 16px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+    color: #f0f0f0;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    transition: all 0.3s ease-in-out;
+    font-size: 0.95em;
+}
+
+.discord-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.discord-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: rgb(4, 209, 255);
+}
+
+.discord-info .status {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.discord-activity-detail p {
+    margin: 0.4em 0;
+    line-height: 1.4;
+}
+
+.discord-status-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.status-online { background: #43b581; }
+.status-idle { background: #faa61a; }
+.status-dnd { background: #f04747; }
+.status-offline { background: #747f8d; }
+
+/* Thêm margin cho Discord card */
+#discord-activity {
+    margin-bottom: 1em; /* cách icon mạng xã hội */
+}
+
+/* Thẻ chứa thông tin Discord */
+.discord-avatar-wrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden; /* Ẩn phần thừa của ảnh đại diện */
+    margin-right: 1em;
+    display: cover; /* Căn giữa ảnh đại diện */
+    align-items: cover; /* Căn giữa ảnh đại diện */
+    justify-content: cover; /* Căn giữa ảnh đại diện */
+    transition: all 0.3s ease; 
+}
+.discord-avatar-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+.discord-avatar-wrapper:hover .discord-avatar {
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.discord-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* Glow tùy theo trạng thái */
+.status-online .discord-avatar { border-color: #43b581; box-shadow: 0 0 15px #43b581; }
+.status-idle   .discord-avatar { border-color: #faa61a; box-shadow: 0 0 15px #faa61a; }
+.status-dnd    .discord-avatar { border-color: #f04747; box-shadow: 0 0 15px #f04747; }
+.status-offline .discord-avatar { border-color: #747f8d; box-shadow: 0 0 10px #555; }
+
+/* Trạng thái dot */
+.discord-status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.status-online  { background: #43b581; }
+.status-idle    { background: #faa61a; }
+.status-dnd     { background: #f04747; }
+.status-offline { background: #747f8d; }
+
+/* 🔥 Glow động cho DND */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px rgba(240, 71, 71, 0.7); }
+    50% { box-shadow: 0 0 20px rgba(240, 71, 71, 1); }
+    100% { box-shadow: 0 0 10px rgba(240, 71, 71, 0.7); }
+}
+
+.status-dnd .discord-avatar-wrapper {
+    animation: pulseGlow 2s infinite;
+}
 
