@@ -61,7 +61,7 @@ html, body {
 
 /* Thiết kế giao diện chính */
 body {
-    background: url('img/Castorise.jpg') center/cover no-repeat;
+    background: url('Img/IMGCastorise.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
