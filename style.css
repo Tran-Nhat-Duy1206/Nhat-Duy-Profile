@@ -61,7 +61,7 @@ html, body {
 
 /* Thiết kế giao diện chính */
 body {
-    background: url('Img/IMGCastorise.jpg') center/cover no-repeat;
+    background: url('img/Castorise.jpg') center/cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -269,7 +269,7 @@ h1 {
         width: 100%;
         text-align: center;
         padding: 1em;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgb(0, 0, 0);
         color: white;
         font-size: 0.8em;
         z-index: 2;
