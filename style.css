@@ -269,7 +269,7 @@ h1 {
         left: 0;
         width: 100%;
         text-align: center;
-        padding: 1em;
+        padding: 0.5em;
         background: rgb(0, 0, 0);
         color: white;
         font-size: 0.8em;
@@ -314,19 +314,6 @@ h1 {
     line-height: 1.4;
 }
 
-.discord-status-dot {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 6px;
-    vertical-align: middle;
-}
-
-.status-online { background: #43b581; }
-.status-idle { background: #faa61a; }
-.status-dnd { background: #f04747; }
-.status-offline { background: #747f8d; }
 
 /* Thêm margin cho Discord card */
 #discord-activity {
@@ -361,13 +348,6 @@ h1 {
     display: block;
 }
 
-
-/* Glow tùy theo trạng thái */
-.status-online .discord-avatar { border-color: #43b581; box-shadow: 0 0 15px #43b581; }
-.status-idle   .discord-avatar { border-color: #faa61a; box-shadow: 0 0 15px #faa61a; }
-.status-dnd    .discord-avatar { border-color: #f04747; box-shadow: 0 0 15px #f04747; }
-.status-offline .discord-avatar { border-color: #747f8d; box-shadow: 0 0 10px #555; }
-
 /* Trạng thái dot */
 .discord-status-dot {
     width: 10px;
@@ -380,7 +360,7 @@ h1 {
 
 .status-online  { background: #43b581; }
 .status-idle    { background: #faa61a; }
-.status-dnd     { background: #f04747; }
+.status-dnd     { background: #f82e2e; }
 .status-offline { background: #747f8d; }
 
 /* 🔥 Glow động cho DND */

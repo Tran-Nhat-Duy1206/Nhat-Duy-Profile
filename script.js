@@ -51,7 +51,7 @@ window.onload = function () {
                             <img class="discord-avatar" src="${avatarURL}" alt="Avatar">
                         </div>
                         <div class="discord-info">
-                            <h3>${user.username}#${user.discriminator}</h3>
+                            <h3>${user.global_name}</h3>
                             <div class="status"><span class="discord-status-dot ${statusClass}"></span>${status}</div>
                         </div>
                     </div>
