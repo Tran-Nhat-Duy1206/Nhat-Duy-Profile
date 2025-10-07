@@ -363,7 +363,7 @@ h1 {
 .status-dnd     { background: #f82e2e; }
 .status-offline { background: #747f8d; }
 
-/* 🔥 Glow động cho DND */
+/* Glow động cho DND */
 @keyframes pulseGlow {
     0% { box-shadow: 0 0 10px rgba(240, 71, 71, 0.7); }
     50% { box-shadow: 0 0 20px rgba(240, 71, 71, 1); }
@@ -373,4 +373,5 @@ h1 {
 .status-dnd .discord-avatar-wrapper {
     animation: pulseGlow 2s infinite;
 }
+
 
