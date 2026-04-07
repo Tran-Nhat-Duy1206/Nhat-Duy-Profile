@@ -4,68 +4,97 @@
     <meta charset="UTF-8">
     <title>Nhật Duy Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="Img/Castorice.jpg" type="image/jpeg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="fade-in">
-    <!-- Overlay -->
-    <div class="overlay"></div>
-
-    <!-- Background -->
-    <img src="Img/Castorise.jpg" alt="Ảnh nền" id="bg-image">
-    <video autoplay muted loop preload="auto" id="bg-video" aria-label="Video nền chủ đề Castorise">
-        <source src="Img/Castorise.mp4" type="video/mp4">
-    </video>
-
-    <!-- Loading -->
-    <div id="loading-screen">
-        <div class="spinner"></div>
-        <p>Đang tải trang...</p>
+<body>
+    <div class="background-layer" aria-hidden="true">
+        <img src="Img/Castorice.jpg" alt="">
+        <video autoplay muted loop preload="auto" id="bg-video" aria-label="Video nền chủ đề Castorice">
+            <source src="Img/Castorice.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <!-- Enter screen -->
-    <div id="enter-screen">
-        <h1>Chào mừng bạn đến với trang của Nhật Duy</h1>
+    <div class="overlay" aria-hidden="true"></div>
+
+    <div id="loading-screen" class="gate-screen">
+        <div class="spinner"></div>
+        <p>Dang tai profile...</p>
+    </div>
+
+    <div id="enter-screen" class="gate-screen">
+        <h1>Chào mừng bạn đến đây</h1>
         <button id="enter-btn">Nhấn để tiếp tục</button>
     </div>
 
-    <!-- Profile -->
-    <div class="profile-container">
-        <div class="profile-card-v2">
-            <div class="avatar-glow">
-                <img src="Img/Hu-tao.jpg" alt="Ảnh đại diện của Nhật Duy">
-            </div>
-            <h2>Nhật Duy</h2>
-            <p class="tagline">🎮 Game thủ | Đang Học Code</p>
-            
-            <div id="discord-activity" class="discord-card">
-                <p>Đang lấy trạng thái Discord...</p>
-            </div>
+    <main id="app" hidden>
+        <section class="profile-shell">
+            <article class="profile-panel">
+                <div class="panel-banner" aria-hidden="true">
+                    <img src="Img/Castorice.jpg" alt="">
+                </div>
 
-            <div class="social-icons">
-                <a href="https://www.facebook.com/TranNhatDuy.1206/" target="_blank" title="Facebook">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a href="https://www.instagram.com/tnh.duy_1206/" target="_blank" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://discord.gg/8JQjrcjEF2" target="_blank" title="Discord">
-                    <i class="fab fa-discord"></i>
-                </a>
-            </div>
-            <a href="https://www.facebook.com/TranNhatDuy.1206/" class="glow-btn">Contact Me</a>
-        </div>
-    </div>
+                <div class="panel-content">
+                    <div class="avatar-wrap">
+                        <img id="profile-avatar" src="Img/Castorice.jpg" alt="Avatar của Nhật Duy">
+                        <img id="profile-avatar-deco" class="avatar-deco hidden" src="" alt="Avatar decoration" aria-hidden="true">
+                        <span id="profile-status-dot" class="status-dot status-online"></span>
+                    </div>
 
-    <!-- Footer -->
-    <div class="footer">
-        <p>© 2025 Nhật Duy. All rights reserved.</p>
-        <p>Made with ❤️ by Nhật Duy</p>
-    </div>
+                    <div id="nameplate-bubble" class="nameplate-bubble hidden"></div>
 
-    <!-- Script -->
+                    <div class="identity-row">
+                        <h2 id="profile-name">Nhật Duy</h2>
+                        <span id="profile-pronouns" class="pronoun-pill">he/him</span>
+                    </div>
+
+                    <div id="badge-row" class="badge-row" aria-label="Badges"></div>
+
+                    <div id="dynamic-bio" class="bio-block">
+                        <p class="bio-label">• Profile</p>
+                        <p>Đang đồng bộ thông tin từ Discord API...</p>
+                    </div>
+
+                    <nav class="social-row" aria-label="Mạng xã hội">
+                        <a href="https://www.facebook.com/TranNhatDuy.1206/" target="_blank" rel="noopener noreferrer" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/tnh.duy_1206/" target="_blank" rel="noopener noreferrer" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://github.com/Tran-Nhat-Duy1206" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://discord.gg/8JQjrcjEF2" target="_blank" rel="noopener noreferrer" title="Discord"><i class="fab fa-discord"></i></a>
+                    </nav>
+
+                    <section class="music-card" aria-label="Music player">
+                        <div class="music-left">
+                            <img id="music-cover" src="Img/Castorice.jpg" alt="Album art">
+                            <div class="music-text">
+                                <strong id="music-title">Loading track...</strong>
+                                <span id="music-artist">Nhat Duy playlist</span>
+                            </div>
+                        </div>
+                        <div class="music-right">
+                            <button id="play-toggle" class="icon-btn" type="button" aria-label="Play or pause"><i class="fa-solid fa-play"></i></button>
+                            <button id="skip-toggle" class="icon-btn" type="button" aria-label="Skip track"><i class="fa-solid fa-forward-step"></i></button>
+                            <button id="mute-toggle" class="icon-btn" type="button" aria-label="Mute or unmute"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        <div class="progress-wrap" aria-hidden="true">
+                            <span id="music-current-time">0:00</span>
+                            <div class="progress-track"><span id="music-progress"></span></div>
+                            <span id="music-duration">0:00</span>
+                        </div>
+                    </section>
+
+                    <section id="discord-activity" class="presence-card">
+                        <p>Đang lấy activity...</p>
+                    </section>
+                </div>
+            </article>
+
+            <footer class="footer">
+                <p>© 2026 Nhat Duy. All rights reserved.</p>
+            </footer>
+        </section>
+    </main>
+
     <script src="script.js"></script>
 </body>
 </html>
-

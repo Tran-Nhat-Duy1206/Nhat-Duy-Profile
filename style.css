@@ -1,40 +1,589 @@
-/* Reset và thiết lập kích thước nền */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Sora:wght@500;600;700&display=swap');
+
+:root {
+    --panel-w: min(480px, 96vw);
+    --panel-line: rgba(223, 232, 255, 0.3);
+    --text-main: #f0f4ff;
+    --text-soft: #c5cfdf;
+    --green: #2bd96b;
+    --online: #43b581;
+    --idle: #faa61a;
+    --dnd: #f04747;
+    --offline: #79869a;
 }
 
-#loading-screen, #enter-screen {
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    color: var(--text-main);
+    min-height: 100dvh;
+    display: grid;
+    place-items: center;
+    padding: 18px;
+    overflow-x: hidden;
+    background: #091126;
+}
+
+.background-layer {
     position: fixed;
-    top: 0;
-    left: 0;
+    inset: 0;
+    z-index: -3;
+}
+
+.background-layer img,
+.background-layer video {
     width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/Castorise.jpg') center/cover no-repeat;
-    background-size: cover;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center; 
-    flex-direction: column;
-    z-index: 9999;
-    transition: opacity 0.5s ease; 
+    object-fit: cover;
 }
 
-/* Ẩn enter screen mặc định */
+.background-layer img {
+    filter: blur(4px) brightness(0.7) saturate(1.2);
+    transform: scale(1.03);
+}
+
+#bg-video {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+}
+
+#bg-video.active {
+    opacity: 0.45;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 15% 10%, rgba(138, 186, 255, 0.24), transparent 48%),
+        radial-gradient(circle at 90% 85%, rgba(150, 170, 255, 0.25), transparent 50%),
+        linear-gradient(180deg, rgba(4, 10, 20, 0.2), rgba(4, 10, 20, 0.62));
+}
+
+.gate-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+    background: rgba(8, 14, 30, 0.84);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+}
+
 #enter-screen {
     display: none;
 }
 
+#enter-screen h1,
+#loading-screen p {
+    margin: 0;
+}
+
+#enter-screen h1 {
+    font-family: 'Sora', sans-serif;
+    max-width: 620px;
+    font-size: clamp(1.4rem, 3.8vw, 2rem);
+    line-height: 1.35;
+}
+
 .spinner {
-    border: 5px solid rgba(255,255,255,0.1);
-    border-top: 5px solid white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 2s linear infinite;
-    margin-bottom: 15px;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    border: 4px solid rgba(255, 255, 255, 0.16);
+    border-top-color: #98d4ff;
+    animation: spin 1s linear infinite;
+}
+
+#enter-btn {
+    border: none;
+    border-radius: 14px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0b1829;
+    background: linear-gradient(130deg, #97c7ff, #b6e5ff);
+    cursor: pointer;
+}
+
+#app {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    animation: rise 0.7s ease;
+}
+
+.profile-shell {
+    width: var(--panel-w);
+}
+
+.profile-panel {
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--panel-line);
+    background: rgba(10, 18, 33, 0.72);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 50px rgba(3, 8, 18, 0.55);
+}
+
+.panel-banner {
+    height: 128px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.panel-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.62);
+}
+
+.panel-content {
+    position: relative;
+    padding: 52px 22px 20px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(8, 14, 28, 0.68), rgba(255, 255, 255, 0.2));
+}
+
+.avatar-wrap {
+    position: absolute;
+    top: -42px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.avatar-wrap img {
+    width: 88px;
+    height: 88px;
+    border-radius: 999px;
+    border: 4px solid rgba(12, 20, 34, 0.95);
+    object-fit: cover;
+    display: block;
+}
+
+.avatar-wrap .avatar-deco {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 122px;
+    height: 122px;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    border: none;
+    border-radius: 0;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
+    z-index: 2;
+}
+
+.avatar-wrap .avatar-deco.hidden {
+    display: none;
+}
+
+.nameplate-bubble {
+    margin: 0 auto 8px;
+    max-width: 280px;
+    min-height: 44px;
+    padding: 9px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(140deg, rgba(74, 95, 138, 0.5), rgba(34, 41, 58, 0.55));
+    color: #eef4ff;
+    font-size: 0.92rem;
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 8px 20px rgba(3, 8, 18, 0.35);
+}
+
+.nameplate-bubble.hidden {
+    display: none;
+}
+
+.nameplate-bubble.palette-bubble_gum {
+    background: linear-gradient(130deg, rgba(232, 118, 184, 0.58), rgba(147, 91, 223, 0.55));
+}
+
+.nameplate-bubble.palette-forest {
+    background: linear-gradient(130deg, rgba(79, 164, 126, 0.58), rgba(39, 90, 80, 0.58));
+}
+
+.nameplate-bubble.palette-ocean {
+    background: linear-gradient(130deg, rgba(87, 160, 235, 0.58), rgba(58, 98, 199, 0.56));
+}
+
+.nameplate-bubble.palette-desert {
+    background: linear-gradient(130deg, rgba(211, 145, 91, 0.6), rgba(133, 83, 57, 0.58));
+}
+
+.nameplate-bubble.palette-midnight {
+    background: linear-gradient(130deg, rgba(92, 100, 188, 0.58), rgba(34, 42, 90, 0.58));
+}
+
+.status-dot {
+    position: absolute;
+    right: 4px;
+    bottom: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 3px solid #0d1526;
+    z-index: 3;
+}
+
+.identity-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.identity-row h2 {
+    margin: 0;
+    font-family: 'Sora', sans-serif;
+    font-size: 2rem;
+    color: #4dc2ff;
+}
+
+.pronoun-pill {
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    background: rgba(0, 0, 0, 0.26);
+    color: #dbe4f1;
+    padding: 4px 11px;
+    font-size: 0.98rem;
+}
+
+.badge-row {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.badge-item {
+    width: 28px;
+    height: 28px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(0, 0, 0, 0.25);
+    color: #b8c6df;
+    font-size: 0.82rem;
+}
+
+.badge-nitro {
+    color: #ffb84d;
+    border-color: rgba(255, 184, 77, 0.5);
+    background: linear-gradient(140deg, rgba(96, 68, 176, 0.52), rgba(255, 184, 77, 0.35));
+}
+
+.badge-staff,
+.badge-moderator {
+    color: #7fd7ff;
+    border-color: rgba(127, 215, 255, 0.5);
+}
+
+.badge-partner,
+.badge-early-supporter {
+    color: #dcb3ff;
+    border-color: rgba(220, 179, 255, 0.46);
+}
+
+.badge-hypesquad-events,
+.badge-hypesquad-bravery,
+.badge-hypesquad-brilliance,
+.badge-hypesquad-balance {
+    color: #ff8a8a;
+    border-color: rgba(255, 138, 138, 0.48);
+}
+
+.badge-bug-hunter-1,
+.badge-bug-hunter-2 {
+    color: #b6f28b;
+    border-color: rgba(182, 242, 139, 0.48);
+}
+
+.badge-active-developer,
+.badge-early-bot-dev {
+    color: #75f0dc;
+    border-color: rgba(117, 240, 220, 0.48);
+}
+
+.badge-img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    display: block;
+}
+
+.badge-emoji {
+    font-size: 0.92rem;
+    line-height: 1;
+}
+
+.bio-block {
+    margin: 12px auto 0;
+    color: var(--text-soft);
+    line-height: 1.45;
+    max-width: 360px;
+}
+
+.bio-block p {
+    margin: 4px 0;
+}
+
+.bio-block .bio-label {
+    color: #f0f4ff;
+}
+
+.bio-block a {
+    color: #7ec4ff;
+    text-decoration: none;
+}
+
+.bio-block a:hover {
+    text-decoration: underline;
+}
+
+.social-row {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-row a {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: inline-grid;
+    place-items: center;
+    background: rgba(225, 235, 255, 0.14);
+    border: 1px solid rgba(225, 235, 255, 0.24);
+    color: #eaf2ff;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social-row a:hover {
+    transform: translateY(-2px);
+    background: rgba(225, 235, 255, 0.22);
+}
+
+.music-card,
+.presence-card {
+    margin-top: 14px;
+    border: 1px solid rgba(232, 238, 255, 0.25);
+    border-radius: 18px;
+    background: rgba(198, 209, 227, 0.28);
+    color: #f5f8ff;
+}
+
+.music-card {
+    padding: 14px;
+}
+
+.music-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#music-cover {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.music-text {
+    display: grid;
+    text-align: left;
+}
+
+.music-text strong {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+}
+
+.music-text span {
+    color: #d0d9ea;
+    font-size: 0.9rem;
+}
+
+.music-right {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.icon-btn {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.24);
+    color: #e9f0ff;
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.icon-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(0, 0, 0, 0.38);
+}
+
+.progress-wrap {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: 36px 1fr 36px;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    color: #d7e0f2;
+}
+
+.progress-track {
+    height: 7px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+#music-progress {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #8dc6ff, #9ca5ff);
+}
+
+.presence-head {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #deebff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.head-meta {
+    margin-left: auto;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: #c6d5ee;
+    text-transform: none;
+}
+
+.presence-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--green);
+}
+
+.presence-body {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    text-align: left;
+}
+
+.presence-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(13, 18, 29, 0.65);
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+}
+
+.presence-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.presence-meta strong,
+.presence-meta p {
+    margin: 0;
+}
+
+.presence-meta p {
+    color: #d3ddef;
+    margin-top: 3px;
+}
+
+.subtle {
+    color: #b8c7e1 !important;
+    font-size: 0.82rem;
+}
+
+.elapsed-tag {
+    color: #b9d2ff;
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
+.presence-foot {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 10px 14px;
+    color: #dbe5f8;
+    text-align: left;
+    font-weight: 500;
+}
+
+.status-online {
+    background: var(--online);
+}
+
+.status-idle {
+    background: var(--idle);
+}
+
+.status-dnd {
+    background: var(--dnd);
+}
+
+.status-offline {
+    background: var(--offline);
+}
+
+.footer {
+    text-align: center;
+    color: #c4d0e5;
+    font-size: 0.78rem;
+    margin-top: 10px;
 }
 
 @keyframes spin {
@@ -43,335 +592,31 @@ html, body {
     }
 }
 
-/* Hiệu ứng loading */
-#enter-btn {
-    padding: 10px 20px;
-    font-size: 18px;
-    background: #fff;
-    color: #111;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-#enter-btn:hover {
-    background: #ddd;
-}
-
-
-/* Thiết kế giao diện chính */
-body {
-    background: url('img/Castorise.jpg') center/cover no-repeat;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-family: Arial, sans-serif;
-    animation: fadeIn 2s ease-in;
-}
-
-/* Ảnh nền */
-#bg-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(50%);
-    z-index: -2;
-    opacity: 1;
-    transition: opacity 2s ease-in;
-}
-
-/* Video nền */
-#bg-video {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 3s ease-in-out;
-}
-
-/* Tiêu đề */
-h1 {
-    font-size: 3em;
-    margin: 0.5em;
-    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6);
-    animation: slideIn 1s ease-out;
-}
-
-/* Icon mạng xã hội */
-.social-icons a {
-    width: 50px; 
-    height: 50px; 
-    font-size: 1.4em;
-    color: #fff;
-    text-decoration: none;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 50%; 
-    margin: 0 0.4em;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.social-icons a:hover {
-    background: rgba(255, 255, 255, 0.2);
-    color: #aaf;
-    transform: scale(1.2);
-}
-
-/* Đồng bộ icon */
-.social-icons i {
-    font-size: 1em; /* Kích thước icon bên trong */
-    vertical-align: middle;
-    line-height: 1;
-}
-
-/* Riêng icon Facebook */
-.social-icons .fa-facebook {
-    display: none;
-}
-
-.social-icons .fa-facebook-f {
-    padding-top: 1px;
-}
-
-/* Hiệu ứng */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Lớp phủ nền */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(20, 20, 20, 0.4);
-    z-index: 1;
-    transition: background-color 1s ease-in-out;
-}
-
-/* Nội dung nổi trên overlay */
-.content {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-    h1 { font-size: 2em; }
-    .social-icons a { font-size: 1em; }
-}
-
-/* Hồ sơ */
-.profile-container {
-    z-index: 2;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2em;
-}
-
-/* Thẻ chứa thông tin cá nhân */
-.profile-card-v2 {
-    width: 330px;
-    max-width: 90%;
-    padding: 2em;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    color: white;
-    animation: slideIn 1s ease-out;
-}
-
-/* Ảnh đại diện */
-.avatar-glow {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin: 0 auto 1em;
-    overflow: hidden;
-    border: 4px solid rgba(255, 255, 255, 0.6);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-}
-
-/* Ảnh đại diện bên trong */
-.avatar-glow img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Tên người dùng */
-.profile-card-v2 h2 {
-    font-size: 1.8em;
-    margin: 0.3em 0;
-}
-
-/* Mô tả người dùng */
-.profile-card-v2 .tagline {
-    font-size: 0.95em;
-    opacity: 0.85;
-    margin-bottom: 1.2em;
-}
-
-/* Nút nhấn */
-.glow-btn {
-    margin-top: 1em;
-    padding: 10px 20px;
-    font-size: 1.2em; 
-    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
-    border: none; 
-    border-radius: 30px;
-    color: #000;
-    font-weight: bold; 
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(173, 216, 230, 0.5);
-    transition: transform 0.3s ease;
-    display: inline-block;
-    text-align: center; 
-}
-
-/* Nút nhấn */
-.glow-btn:hover {
-    transform: translateY(-3px);
-    background: linear-gradient(135deg, #ACB6E5, #74ebd5);
-}
-
-.footer
-    {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 0.5em;
-        background: rgb(0, 0, 0);
-        color: white;
-        font-size: 0.8em;
-        z-index: 2;
+@media (max-width: 520px) {
+    .panel-content {
+        padding: 52px 14px 14px;
     }
 
-/* Thông tin Discord */
-.discord-card {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    padding: 1.5em;
-    border-radius: 16px;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
-    color: #f0f0f0;
-    text-align: left;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    transition: all 0.3s ease-in-out;
-    font-size: 0.95em;
+    .identity-row h2 {
+        font-size: 1.7rem;
+    }
+
+    .pronoun-pill {
+        font-size: 0.88rem;
+    }
+
+    .music-text strong {
+        max-width: 140px;
+    }
 }
-
-.discord-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1em;
-}
-
-.discord-info h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: rgb(4, 209, 255);
-}
-
-.discord-info .status {
-    font-size: 0.85em;
-    opacity: 0.8;
-}
-
-.discord-activity-detail p {
-    margin: 0.4em 0;
-    line-height: 1.4;
-}
-
-
-/* Thêm margin cho Discord card */
-#discord-activity {
-    margin-bottom: 1em; /* cách icon mạng xã hội */
-}
-
-/* Thẻ chứa thông tin Discord */
-.discord-avatar-wrapper {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden; /* Ẩn phần thừa của ảnh đại diện */
-    margin-right: 1em;
-    display: cover; /* Căn giữa ảnh đại diện */
-    align-items: cover; /* Căn giữa ảnh đại diện */
-    justify-content: cover; /* Căn giữa ảnh đại diện */
-    transition: all 0.3s ease; 
-}
-.discord-avatar-wrapper:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-.discord-avatar-wrapper:hover .discord-avatar {
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-
-.discord-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* Trạng thái dot */
-.discord-status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
-    vertical-align: middle;
-}
-
-.status-online  { background: #43b581; }
-.status-idle    { background: #faa61a; }
-.status-dnd     { background: #f82e2e; }
-.status-offline { background: #747f8d; }
-
-/* Glow động cho DND */
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 10px rgba(240, 71, 71, 0.7); }
-    50% { box-shadow: 0 0 20px rgba(240, 71, 71, 1); }
-    100% { box-shadow: 0 0 10px rgba(240, 71, 71, 0.7); }
-}
-
-.status-dnd .discord-avatar-wrapper {
-    animation: pulseGlow 2s infinite;
-}
-
-
